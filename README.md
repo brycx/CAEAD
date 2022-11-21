@@ -15,4 +15,5 @@ These committment schemes are built upon:
 Credits to CX[E] implementation by [Michael Rosenberg](https://github.com/rozbb/kc-aeads) which provided inspiration.
 
 [1]: Chan, John., Rogaway, Phillip., 2022, "On Committing Authenticated Encryption", https://eprint.iacr.org/2022/1260
+
 [2]: Bellare, Mihir., Hoang, Viet Tung., 2022, "Efficient Schemes for Committing Authenticated Encryption", https://eprint.iacr.org/2022/268

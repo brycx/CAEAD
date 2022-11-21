@@ -101,6 +101,8 @@ impl<A: NAEAD<K, N, T>, const K: usize, const N: usize, const T: usize> UtC<A, K
     /// The CX[E] committing PRF built on top of a blockcipher. See Figure 14 https://eprint.iacr.org/2022/268.
     ///
     /// Returns the (P, L) tuple, of PL and LL length, respectively.
+    /// 
+    /// ref: https://github.com/rozbb/kc-aeads
     fn comitting_prf<const PL: usize, const LL: usize>(
         &self,
         message: &[u8],
