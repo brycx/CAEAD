@@ -1,0 +1,19 @@
+[package]
+name = "caead"
+version = "0.1.0"
+authors = ["brycx <brycx@protonmail.com>"]
+edition = "2021"
+
+
+[dependencies.orion]
+version = "0.17.2"
+
+[dependencies]
+aes-gcm = "0.10.1"
+criterion = "0.4.0"
+aes = "0.8.2"
+cipher = "0.4"
+
+[[bench]]
+name = "bench"
+harness = false
