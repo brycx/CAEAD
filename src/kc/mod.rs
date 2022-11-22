@@ -245,6 +245,7 @@ impl<
         const D: usize,
     > HtE<A, H, K, N, T, D>
 {
+    /// Create new [`HtE`] instance.
     pub fn new(key: [u8; K]) -> Result<Self, Error> {
         if key.len() != K {
             return Err(Error);
