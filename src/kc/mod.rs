@@ -161,6 +161,7 @@ impl<A: NAEAD<K, N, T>, const K: usize, const N: usize, const T: usize> UtC<A, K
         Ok((p, l))
     }
 
+    /// Create new [`UtC`] instance.
     pub fn new(key: &[u8]) -> Result<Self, Error> {
         if key.len() != K {
             return Err(Error);
