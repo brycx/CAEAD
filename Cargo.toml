@@ -14,6 +14,9 @@ criterion = "0.4.0"
 aes = "0.8.2"
 cipher = "0.4"
 
+[features]
+bench_throughput = []
+
 [[bench]]
 name = "bench"
 harness = false
