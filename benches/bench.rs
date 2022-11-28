@@ -26,7 +26,7 @@ mod aead {
         }
 
         for (size, pair) in INPUT_SIZES.iter().zip(ct_tag_pairs.iter()) {
-            #[cfg(feautre = "bench_throughput")]
+            #[cfg(feature = "bench_throughput")]
             group.throughput(Throughput::Bytes(*size as u64));
 
             group.bench_with_input(BenchmarkId::new("decrypt", *size), pair, |b, input_pair| {
@@ -70,7 +70,7 @@ mod kc_aead {
         }
 
         for (size, pair) in INPUT_SIZES.iter().zip(ct_tag_pairs.iter()) {
-            #[cfg(feautre = "bench_throughput")]
+            #[cfg(feature = "bench_throughput")]
             group.throughput(Throughput::Bytes(*size as u64));
 
             group.bench_with_input(
@@ -100,7 +100,7 @@ mod kc_aead {
         }
 
         for (size, pair) in INPUT_SIZES.iter().zip(ct_tag_pairs.iter()) {
-            #[cfg(feautre = "bench_throughput")]
+            #[cfg(feature = "bench_throughput")]
             group.throughput(Throughput::Bytes(*size as u64));
 
             group.bench_with_input(
