@@ -12,7 +12,7 @@ mod aead {
     use super::*;
 
     pub fn bench_chacha20poly1305(c: &mut Criterion) {
-        let mut group = c.benchmark_group("ChaCha20-Poly130");
+        let mut group = c.benchmark_group("ChaCha20-Poly1305");
         let k = [0u8; 32];
         let n = [0u8; 12];
         let a = b"v1";
@@ -26,7 +26,9 @@ mod aead {
         }
 
         for (size, pair) in INPUT_SIZES.iter().zip(ct_tag_pairs.iter()) {
+            #[cfg(feautre = "bench-troughput")]
             group.throughput(Throughput::Bytes(*size as u64));
+
             group.bench_with_input(BenchmarkId::new("decrypt", *size), pair, |b, input_pair| {
                 b.iter(|| {
                     ChaCha20Poly1305::decrypt(&k, &n, a, &input_pair.0, &input_pair.1, true)
@@ -41,7 +43,6 @@ mod aead {
         config = Criterion::default();
         targets =
         bench_chacha20poly1305,
-        // TDOD: Add normal AEC-GCM
     }
 }
 
@@ -69,7 +70,9 @@ mod kc_aead {
         }
 
         for (size, pair) in INPUT_SIZES.iter().zip(ct_tag_pairs.iter()) {
+            #[cfg(feautre = "bench-troughput")]
             group.throughput(Throughput::Bytes(*size as u64));
+
             group.bench_with_input(
                 BenchmarkId::new("kc-decrypt", *size),
                 pair,
@@ -97,7 +100,9 @@ mod kc_aead {
         }
 
         for (size, pair) in INPUT_SIZES.iter().zip(ct_tag_pairs.iter()) {
+            #[cfg(feautre = "bench-troughput")]
             group.throughput(Throughput::Bytes(*size as u64));
+
             group.bench_with_input(
                 BenchmarkId::new("kc-decrypt", *size),
                 pair,
@@ -116,7 +121,6 @@ mod kc_aead {
         targets =
         bench_ctx_chacha20poly1305_blake2b,
         bench_hte_chacha20poly1305_blake2b,
-        // TDOD: Add CTX-AEC-GCM, and UtC+HtE for both
     }
 }
 
