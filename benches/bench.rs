@@ -13,7 +13,8 @@ mod aead {
 
     pub fn bench_chacha20poly1305(c: &mut Criterion) {
         let mut group = c.benchmark_group("ChaCha20-Poly1305");
-        let k = [0u8; 32];
+        let mut k = [0u8; 32];
+        orion::util::secure_rand_bytes(&mut k).unwrap();
         let n = [0u8; 12];
         let a = b"v1";
 
@@ -21,7 +22,8 @@ mod aead {
         // and then measure decrypt as this is the most expensive operation (the same as encryption plus tag verification.)
         let mut ct_tag_pairs: Vec<(Vec<u8>, Vec<u8>)> = Vec::new();
         for size in INPUT_SIZES.iter() {
-            let m = vec![0u8; *size];
+            let mut m = vec![0u8; *size];
+            orion::util::secure_rand_bytes(&mut m).unwrap();
             ct_tag_pairs.push(ChaCha20Poly1305::encrypt(&k, &n, &m, a).unwrap());
         }
 
@@ -57,7 +59,9 @@ mod kc_aead {
 
     pub fn bench_ctx_chacha20poly1305_blake2b(c: &mut Criterion) {
         let mut group = c.benchmark_group("CTX-ChaCha20-Poly1305-BLAKE2b");
-        let ctx = CTX::<ChaCha20Poly1305, Blake2b, 32, 12, 16, 32>::new([0u8; 32]).unwrap();
+        let mut k = [0u8; 32];
+        orion::util::secure_rand_bytes(&mut k).unwrap();
+        let ctx = CTX::<ChaCha20Poly1305, Blake2b, 32, 12, 16, 32>::new(k).unwrap();
         let n = [0u8; 12];
         let a = b"v1";
 
@@ -65,7 +69,8 @@ mod kc_aead {
         // and then measure decrypt as this is the most expensive operation (the same as encryption plus tag verification.)
         let mut ct_tag_pairs: Vec<(Vec<u8>, Vec<u8>)> = Vec::new();
         for size in INPUT_SIZES.iter() {
-            let m = vec![0u8; *size];
+            let mut m = vec![0u8; *size];
+            orion::util::secure_rand_bytes(&mut m).unwrap();
             ct_tag_pairs.push(ctx.encrypt(&n, &m, a).unwrap());
         }
 
@@ -87,7 +92,9 @@ mod kc_aead {
 
     pub fn bench_hte_chacha20poly1305_blake2b(c: &mut Criterion) {
         let mut group = c.benchmark_group("HtE-ChaCha20-Poly1305-BLAKE2b");
-        let hte = HtE::<ChaCha20Poly1305, Blake2b, 32, 12, 16, 32>::new([0u8; 32]).unwrap();
+        let mut k = [0u8; 32];
+        orion::util::secure_rand_bytes(&mut k).unwrap();
+        let hte = HtE::<ChaCha20Poly1305, Blake2b, 32, 12, 16, 32>::new(k).unwrap();
         let n = [0u8; 12];
         let a = b"v1";
 
@@ -95,7 +102,8 @@ mod kc_aead {
         // and then measure decrypt as this is the most expensive operation (the same as encryption plus tag verification.)
         let mut ct_tag_pairs: Vec<(Vec<u8>, Vec<u8>)> = Vec::new();
         for size in INPUT_SIZES.iter() {
-            let m = vec![0u8; *size];
+            let mut m = vec![0u8; *size];
+            orion::util::secure_rand_bytes(&mut m).unwrap();
             ct_tag_pairs.push(hte.encrypt(&n, &m, a).unwrap());
         }
 
